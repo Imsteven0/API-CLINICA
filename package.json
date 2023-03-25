@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  },
+  "name": "api-clinica",
+  "description": "Desarrollado para gestionar la consulta y el expediente médico de los pacientes de la clínica San Rafael Arcángel en Liberia, Guanacaste.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Imsteven0/API-CLINICA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Imsteven0/API-CLINICA/issues"
+  },
+  "homepage": "https://github.com/Imsteven0/API-CLINICA#readme"
+}
