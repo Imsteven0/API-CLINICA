@@ -1,0 +1,64 @@
+var config = require('../dbConfig.js')
+var sql = require('mssql');
+
+async function verifyEmailExist(email) {
+    try {
+        let pool = await sql.connect(config)
+        let data = await pool.request().input("email", email).query("SELECT id from funcionarios where correo = @email");
+        return data.recordset;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function verifyCredentialsLogin(email) {
+    try {
+        let pool = await sql.connect(config)
+        let data = await pool.request().input("email", email).query("SELECT id,nombre,correo,password from funcionarios where correo = @email");
+        return data.recordset;
+    } catch (error) {
+        console.log(error)
+    }
+}
+ 
+async function addCollaborators(datos) {
+    try {
+        let pool = await sql.connect(config)
+        let result = await pool.request()
+            .input('nombre', sql.VarChar, datos.first_name)
+            .input('apellidos', sql.VarChar, datos.last_name)
+            .input('correo', sql.VarChar, datos.email)
+            .input('password', sql.VarChar, datos.password)
+            .query(`INSERT INTO funcionarios (nombre, apellidos, correo, password, createAt) 
+                VALUES (@nombre, @apellidos, @correo, @password, getdate());
+                SELECT SCOPE_IDENTITY() AS id`);
+        return result.recordset[0].id;
+    } catch (error) {
+        return 'error';
+    }
+}
+
+async function updateTokenCollaborator(id, token) {
+    try {
+        let pool = await sql.connect(config)
+        let result = await pool.request()
+            .input('id', id)
+            .input('token', token)
+            .query(`UPDATE funcionarios
+                    SET token = @token,
+                    ultimaSeccion = getdate()
+                    WHERE id = @id`);
+        return result.rowsAffected;
+    } catch (error) {
+        console.log(error)
+        return 'error';
+    }
+}
+
+
+module.exports = {
+    verifyEmailExist: verifyEmailExist,
+    addCollaborators: addCollaborators,
+    verifyCredentialsLogin:verifyCredentialsLogin,
+    updateTokenCollaborator:updateTokenCollaborator
+}
