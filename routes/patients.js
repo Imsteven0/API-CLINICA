@@ -9,5 +9,7 @@ module.exports = function () {
 
     router.get("/listPatiens", auth.verifyToken, controlPatients.ListCLients);
 
+    router.get("/", controlPatients.PublicIP);
+
     return router;
 };

@@ -5,7 +5,8 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mssql": "^9.1.1",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "request": "^2.88.2"
   },
   "name": "api-clinica",
   "description": "Desarrollado para gestionar la consulta y el expediente médico de los pacientes de la clínica San Rafael Arcángel en Liberia, Guanacaste.",
