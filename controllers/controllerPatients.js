@@ -4,17 +4,7 @@ const dbPatiets = require("../database/dataModels/dbPatiets.js");
 const request = require('request');
 
 exports.PublicIP = async (req, res, next) => {
-    try {
-        const request = require('request');
-
-        request('https://api.ipify.org', (error, response, body) => {
-            if (!error && response.statusCode == 200) {
-                return res.status(200).json(body);
-            }
-        });
-    } catch (error) {
-        res.status(500).json({ error: error });
-    }
+ res.status(200).json({Status:'Servidor UP correctamente, API Clinica Calderon.'})
 };
 
 exports.ListCLients = async (req, res, next) => {
