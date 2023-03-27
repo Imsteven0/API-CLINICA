@@ -9,13 +9,13 @@ exports.Register = async (req, res, next) => {
     const { first_name, last_name, email, password } = req.body;
 
     if (!(email && password && first_name && last_name)) {
-      res.status(400).send("All input is required");
+      return res.status(409).json({ error: "All input is required" })
     }
 
     const oldUser = await dbCollaborators.verifyEmailExist(email);
 
     if (oldUser.length > 0) {
-      return res.status(409).send("User Already Exist. Please Login");
+      return res.status(409).json({ error: "User Already Exist. Please Login" })
     }
 
     encryptedPassword = await bcrypt.hash(password, 10);
@@ -39,7 +39,7 @@ exports.Register = async (req, res, next) => {
 
     res.status(201).json(user);
   } catch (err) {
-    res.status(400).send("Ops algo salio mal!");
+    return res.status(409).json({ error: "Ops algo salio mal!" })
   }
 };
 
@@ -48,7 +48,7 @@ exports.Login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      res.status(400).send("All input is required");
+      return res.status(409).json({ error: "All input is required" })
     }
 
     const user = await dbCollaborators.verifyCredentialsLogin(email);
@@ -68,7 +68,8 @@ exports.Login = async (req, res, next) => {
 
       res.status(200).json(user);
     } else {
-      res.status(400).send("Invalid Credentials");
+      
+      return res.status(409).json({ error: "Invalid Credentials" })
     }
   } catch (err) {
     res.status(400).send("Ops algo salio mal!");

@@ -7,7 +7,7 @@ const auth = require("../middlewares/authJWT");
 
 module.exports = function () {
 
-    router.get("/list", auth.verifyToken, controlPatients.ListCLients);
+    router.get("/listPatiens", auth.verifyToken, controlPatients.ListCLients);
 
     return router;
 };
