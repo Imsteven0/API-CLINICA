@@ -1,5 +1,7 @@
 //Archivo principal de la aplicación
 const express = require('express');
+
+const cors = require('cors');
 //Cargar variables de entorno
 require('dotenv').config();
 
