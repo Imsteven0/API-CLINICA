@@ -6,7 +6,7 @@ const auth = require("../middlewares/authJWT");
 const rol = require("../middlewares/roles-middleware");
 
 module.exports = function () {
-  router.get(
+  router.post(
     "/ListQuotesByDate",
     auth.verifyToken,
     rol.restrictTo(2),
