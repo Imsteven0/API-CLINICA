@@ -62,9 +62,23 @@ async function updateTokenCollaborator(id, token) {
   }
 }
 
+async function getRoleUser(token) {
+  try {
+    let pool = await sql.connect(config);
+    let data = await pool.request().input("token", token)
+      .query(`Select R.id,R.descripcion from funcionarios F
+      INNER JOIN rol AS R ON R.id = F.idRol
+      where F.token = @token`);
+    return data.recordset;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   verifyEmailExist: verifyEmailExist,
   addCollaborators: addCollaborators,
   verifyCredentialsLogin: verifyCredentialsLogin,
   updateTokenCollaborator: updateTokenCollaborator,
+  getRoleUser: getRoleUser,
 };

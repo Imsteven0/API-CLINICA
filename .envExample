@@ -1,13 +1,11 @@
-SQLUSER=clinica-01
+SQLUSER=admin
 
-SQLPASSWORD=''
+SQLPASSWORD=admin123
 
-SQLSERVER=35.224.147.238
+SQLSERVER=clinica-1.cw03i9iemqnz.us-east-1.rds.amazonaws.com
+
+TOKEN_KEY=Sarayag
 
 SQLDATABASE=CLINICA
-
-TOKENKEY=
-
-TOKEN_KEY=
 
 PORT=5000
