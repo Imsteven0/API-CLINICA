@@ -29,6 +29,8 @@ module.exports = function () {
 
   router.delete(
     "/deletePatients/:id",
+    auth.verifyToken,
+    rol.restrictTo(1),
     controlPatients.DeleteClientes
   );
 
