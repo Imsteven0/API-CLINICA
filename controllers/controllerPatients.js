@@ -94,10 +94,10 @@ exports.UpdateClientes = async (req, res, next) => {
 };
 
 exports.DeleteClientes = async (req, res, next) => {
+ console.log('entro')
   try {
-    const { id } = req.params.id;
-    const data = await dbPatients.deletePatient(id);
-    res.status(200).json(data);
+    const data = await dbPatients.deletePatient(req.params.id);
+    res.status(200).json({idEliminado: data});
   } catch (error) {
     res.status(500).json({ error: error });
   }
