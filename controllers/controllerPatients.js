@@ -97,7 +97,7 @@ exports.DeleteClientes = async (req, res, next) => {
  console.log('entro')
   try {
     const data = await dbPatients.deletePatient(req.params.id);
-    res.status(200).json({idEliminado: data});
+    res.status(200).json({info: 'Eliminado correctamente'});
   } catch (error) {
     res.status(500).json({ error: error });
   }
