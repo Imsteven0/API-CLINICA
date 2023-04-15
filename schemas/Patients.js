@@ -3,7 +3,7 @@ const Joi = require("joi");
 const pacienteSchema = Joi.object({
   nombre: Joi.string().required(),
   apellidos: Joi.string().required(),
-  cedula: Joi.string().length(11).required(),
+  cedula: Joi.string().length(9).required(),
   direccion: Joi.string().required(),
   telefono: Joi.string().required(),
   peso: Joi.string().required(),
