@@ -69,7 +69,7 @@ async function updatePatient(patient) {
           tipoSangre = @tipoSangre,
           alergias = @alergias
           WHERE id = @id;`);
-    return result.recordset;
+    return result;
   } catch (error) {
     console.log(error);
     return error.message
