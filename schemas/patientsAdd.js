@@ -10,9 +10,7 @@ const pacienteSchemaAdd = Joi.object({
   peso: Joi.string().required(),
   fechaNacimiento: Joi.date().required(),
   altura: Joi.string().required(),
-  enfermedades: Joi.string().required(),
-  tipoSangre: Joi.string().required(),
-  alergias: Joi.string().required(),
+  tipoSangre: Joi.string().required()
 });
 
 module.exports = pacienteSchemaAdd;
