@@ -6,7 +6,6 @@ const pacienteSchemaAdd = Joi.object({
   apellidos: Joi.string().required(),
   cedula: Joi.string().length(9).required(),
   direccion: Joi.string().required(),
-  telefono: Joi.string().required(),
   peso: Joi.string().required(),
   fechaNacimiento: Joi.date().required(),
   altura: Joi.string().required(),
