@@ -26,8 +26,8 @@ async function addPatient(patient) {
       .input("fechaNacimiento", sql.Date, patient.fechaNacimiento)
       .input("altura", sql.VarChar, patient.altura)
       .input("tipoSangre", sql.VarChar, patient.tipoSangre)
-      .query(`INSERT INTO pacientes (nombre, apellidos, cedula, direccion, telefono, peso, fechaNacimiento, altura, tipoSangre)
-         VALUES (@nombre, @apellidos, @cedula, @direccion, @telefono, @peso, @fechaNacimiento, @altura, @tipoSangre);
+      .query(`INSERT INTO pacientes (nombre, apellidos, cedula, direccion, peso, fechaNacimiento, altura, tipoSangre)
+         VALUES (@nombre, @apellidos, @cedula, @direccion, @peso, @fechaNacimiento, @altura, @tipoSangre);
           SELECT SCOPE_IDENTITY() AS id;`);
     let patientId = insertPatient.recordset;
     return patientId;
