@@ -2,6 +2,8 @@
 const dbPatients = require("../database/dataModels/dbPatiets.js");
 const pacienteSchema = require("../schemas/Patients.js");
 
+const pacientsAdd  = require("../schemas/patientsAdd.js")
+
 exports.PublicIP = async (req, res, next) => {
   res
     .status(200)
@@ -19,7 +21,7 @@ exports.ListCLients = async (req, res, next) => {
 
 exports.AddClientes = async (req, res, next) => {
   try {
-    const { error, value } = pacienteSchema.validate(req.body, {
+    const { error, value } = pacientsAdd.validate(req.body, {
       abortEarly: false,
     });
     if (error) {
