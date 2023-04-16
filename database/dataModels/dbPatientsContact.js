@@ -7,8 +7,11 @@ async function getAllPatientsContact(id) {
     let result = await pool
       .request()
       .input("id", sql.Int, id)
-      .query(`SELECT FROM pacientes_contacto WHERE idPaciente = @id`);
-    return result.rowsAffected;
+      .query(`SELECT pc.id,pc.idPaciente,pc.nombre,pc.apellidos,pc.telefono,pc.direccion,p.parentezco 
+      FROM pacientes_contacto as PC
+      INNER JOIN parentezco as p on p.id = pc.idParentezco
+      WHERE PC.id = @id`);
+    return result.recordset;
   } catch (error) {
     return "error";
   }
@@ -19,16 +22,14 @@ async function addPatientContact(patient) {
     let pool = await sql.connect(config);
     let insertPatient = await pool
       .request()
+      .input("idPaciente", sql.Int, patient.idPaciente)
+      .input("idParentezco", sql.Int, patient.idParentezco)
       .input("nombre", sql.VarChar, patient.nombre)
       .input("apellidos", sql.VarChar, patient.apellidos)
-      .input("cedula", sql.VarChar, patient.cedula)
+      .input("telefono", sql.VarChar, patient.telefono)
       .input("direccion", sql.VarChar, patient.direccion)
-      .input("peso", sql.VarChar, patient.peso)
-      .input("fechaNacimiento", sql.Date, patient.fechaNacimiento)
-      .input("altura", sql.VarChar, patient.altura)
-      .input("tipoSangre", sql.VarChar, patient.tipoSangre)
-      .query(`INSERT INTO pacientes (nombre, apellidos, cedula, direccion, peso, fechaNacimiento, altura, tipoSangre)
-         VALUES (@nombre, @apellidos, @cedula, @direccion, @peso, @fechaNacimiento, @altura, @tipoSangre);
+      .query(`INSERT INTO pacientes_contacto (idPaciente, idParentezco, nombre, apellidos, telefono, direccion)
+         VALUES (@idPaciente, @idParentezco, @nombre, @apellidos, @telefono, @direccion);
           SELECT SCOPE_IDENTITY() AS id;`);
     let pacienteId = insertPatient.recordset[0].id;
     return pacienteId;
@@ -44,25 +45,23 @@ async function updatePatientContact(patient) {
     let result = await pool
       .request()
       .input("id", sql.Int, patient.id)
+      .input("idPaciente", sql.Int, patient.idPaciente)
+      .input("idParentezco", sql.Int, patient.idParentezco)
       .input("nombre", sql.VarChar, patient.nombre)
       .input("apellidos", sql.VarChar, patient.apellidos)
-      .input("cedula", sql.VarChar, patient.cedula)
+      .input("telefono", sql.VarChar, patient.telefono)
       .input("direccion", sql.VarChar, patient.direccion)
-      .input("peso", sql.VarChar, patient.peso)
-      .input("fechaNacimiento", sql.Date, patient.fechaNacimiento)
-      .input("altura", sql.VarChar, patient.altura)
-      .input("tipoSangre", sql.VarChar, patient.tipoSangre)
-      .query(`UPDATE pacientes SET nombre = @nombre,
-       apellidos = @apellidos, 
-       cedula = @cedula, 
-       direccion = @direccion,
-       peso = @peso,
-       fechaNacimiento = @fechaNacimiento,
-       altura = @altura,
-       tipoSangre = @tipoSangre 
-       WHERE id = @id`);
+      .query(`UPDATE pacientes_contacto SET 
+        idPaciente = @idPaciente,
+        idParentezco = @idParentezco, 
+        nombre = @nombre, 
+        apellidos = @apellidos,
+        telefono = @telefono,
+        direccion = @direccion
+        WHERE id = @id`);
     return result.rowsAffected;
   } catch (error) {
+    console.log(error)
     return "error";
   }
 }
@@ -73,7 +72,7 @@ async function deletePatientContact(id) {
     let result = await pool
       .request()
       .input("id", sql.Int, id)
-      .query(`DELETE FROM pacientes WHERE id = @id`);
+      .query(`DELETE FROM pacientes_contacto WHERE id = @id`);
     return result.rowsAffected;
   } catch (error) {
     return "error";
