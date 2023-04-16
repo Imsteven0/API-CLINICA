@@ -10,6 +10,8 @@ const patients = require("./routes/patients");
 const login = require("./routes/login");
 const Quotes = require("./routes/quotes");
 const MedicalConsult = require("./routes/medicalConsult");
+const patientsDiseases = require("./routes/patientsDiseases");
+const patientsContact = require("./routes/patientsContact");
 
 //Inicializar express
 const app = express();
@@ -24,6 +26,8 @@ app.use("/", patients());
 app.use("/", login());
 app.use("/", Quotes());
 app.use("/", MedicalConsult());
+app.use("/", patientsDiseases());
+app.use("/", patientsContact());
 
 //Puerto donde esta corriendo el servidor
 app.listen(process.env.PORT, () => {

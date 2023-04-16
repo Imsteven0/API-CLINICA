@@ -28,7 +28,7 @@ module.exports = function () {
     "/patientsContact/:id",
     auth.verifyToken,
     rol.restrictTo(1),
-    controlPatientsContact.DeletePatiensContact
+    controlPatientsContact.DeletePatientsContact
   );
 
   return router;
