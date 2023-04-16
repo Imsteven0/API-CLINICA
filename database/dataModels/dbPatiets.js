@@ -25,11 +25,9 @@ async function addPatient(patient) {
       .input("peso", sql.VarChar, patient.peso)
       .input("fechaNacimiento", sql.Date, patient.fechaNacimiento)
       .input("altura", sql.VarChar, patient.altura)
-      .input("enfermedades", sql.VarChar, patient.enfermedades)
       .input("tipoSangre", sql.VarChar, patient.tipoSangre)
-      .input("alergias", sql.VarChar, patient.alergias)
-      .query(`INSERT INTO pacientes (nombre, apellidos, cedula, direccion, telefono, peso, fechaNacimiento, altura, enfermedades, tipoSangre, alergias)
-         VALUES (@nombre, @apellidos, @cedula, @direccion, @telefono, @peso, @fechaNacimiento, @altura, @enfermedades, @tipoSangre, @alergias);
+      .query(`INSERT INTO pacientes (nombre, apellidos, cedula, direccion, telefono, peso, fechaNacimiento, altura, tipoSangre)
+         VALUES (@nombre, @apellidos, @cedula, @direccion, @telefono, @peso, @fechaNacimiento, @altura, @tipoSangre);
           SELECT SCOPE_IDENTITY() AS id;`);
     let patientId = insertPatient.recordset;
     return patientId;
@@ -53,9 +51,7 @@ async function updatePatient(patient) {
       .input("peso", sql.VarChar, patient.peso)
       .input("fechaNacimiento", sql.Date, patient.fechaNacimiento)
       .input("altura", sql.VarChar, patient.altura)
-      .input("enfermedades", sql.VarChar, patient.enfermedades)
       .input("tipoSangre", sql.VarChar, patient.tipoSangre)
-      .input("alergias", sql.VarChar, patient.alergias)
       .query(`UPDATE pacientes SET 
           nombre = @nombre,
           apellidos = @apellidos,

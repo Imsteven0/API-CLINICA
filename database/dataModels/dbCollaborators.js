@@ -1,27 +1,27 @@
 var config = require("../dbConfig.js");
 var sql = require("mssql");
 
-async function verifyEmailExist(email) {
+async function verifyEmailCedula(cedula) {
   try {
     let pool = await sql.connect(config);
     let data = await pool
       .request()
-      .input("email", email)
-      .query("SELECT id from funcionarios where correo = @email");
+      .input("cedula", cedula)
+      .query("SELECT id from funcionarios where cedula = @cedula");
     return data.recordset;
   } catch (error) {
     console.log(error);
   }
 }
 
-async function verifyCredentialsLogin(email) {
+async function verifyCredentialsLogin(cedula) {
   try {
     let pool = await sql.connect(config);
     let data = await pool
       .request()
-      .input("email", email)
+      .input("cedula", cedula)
       .query(
-        "SELECT f.id,f.nombre,f.correo,f.password,r.id as idRol ,r.descripcion as descripcionRol  from funcionarios as f INNER JOIN rol AS r on r.id = f.idRol where f.correo = @email"
+        "SELECT f.id,f.nombre,f.password,r.id as idRol ,r.descripcion as descripcionRol  from funcionarios as f INNER JOIN rol AS r on r.id = f.idRol where f.cedula = @cedula"
       );
     return data.recordset;
   } catch (error) {
@@ -34,15 +34,16 @@ async function addCollaborators(datos) {
     let pool = await sql.connect(config);
     let result = await pool
       .request()
-      .input("nombre", sql.VarChar, datos.first_name)
-      .input("apellidos", sql.VarChar, datos.last_name)
-      .input("correo", sql.VarChar, datos.email)
+      .input("nombre", sql.VarChar, datos.nombre)
+      .input("apellidos", sql.VarChar, datos.apellidos)
+      .input("cedula", sql.VarChar, datos.cedula)
       .input("password", sql.VarChar, datos.password)
-      .query(`INSERT INTO funcionarios (nombre, apellidos, correo, password, createAt) 
-                VALUES (@nombre, @apellidos, @correo, @password, getdate());
+      .query(`INSERT INTO funcionarios (nombre, apellidos,cedula, password, createAt) 
+                VALUES (@nombre, @apellidos, @cedula, @password, getdate());
                 SELECT SCOPE_IDENTITY() AS id`);
     return result.recordset[0].id;
   } catch (error) {
+    console.log(error)
     return "error";
   }
 }
@@ -76,7 +77,7 @@ async function getRoleUser(token) {
 }
 
 module.exports = {
-  verifyEmailExist: verifyEmailExist,
+  verifyEmailCedula: verifyEmailCedula,
   addCollaborators: addCollaborators,
   verifyCredentialsLogin: verifyCredentialsLogin,
   updateTokenCollaborator: updateTokenCollaborator,

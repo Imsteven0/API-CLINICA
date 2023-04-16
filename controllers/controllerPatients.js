@@ -38,9 +38,7 @@ exports.AddClientes = async (req, res, next) => {
       peso,
       fechaNacimiento,
       altura,
-      enfermedades,
       tipoSangre,
-      alergias,
     } = value;
 
     newPatientId = await dbPatients.addPatient(value);
@@ -77,9 +75,7 @@ exports.UpdateClientes = async (req, res, next) => {
       peso,
       fechaNacimiento,
       altura,
-      enfermedades,
       tipoSangre,
-      alergias,
     } = value;
 
     const result = await dbPatients.updatePatient(value);
