@@ -21,7 +21,6 @@ async function addPatient(patient) {
       .input("apellidos", sql.VarChar, patient.apellidos)
       .input("cedula", sql.VarChar, patient.cedula)
       .input("direccion", sql.VarChar, patient.direccion)
-      .input("telefono", sql.VarChar, patient.telefono)
       .input("peso", sql.VarChar, patient.peso)
       .input("fechaNacimiento", sql.Date, patient.fechaNacimiento)
       .input("altura", sql.VarChar, patient.altura)
