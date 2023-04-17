@@ -88,7 +88,7 @@ exports.Login = async (req, res, next) => {
 
       res.status(200).json({
         id: user[0].idRol,
-        nombre: usuario[0].nombre,
+        nombre: user[0].nombre,
         rol: user[0].descripcionRol,
         token: user[0].token,
       });
