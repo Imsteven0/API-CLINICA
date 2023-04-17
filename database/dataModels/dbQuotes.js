@@ -54,7 +54,7 @@ async function updateQuote(Quote) {
             estado = @estado
              WHERE id = @id`
       );
-    return result.recordset;
+    return result;
   } catch (error) {
     console.log(error.message);
     return error.message;
@@ -68,7 +68,7 @@ async function deleteQuote(id) {
       .request()
       .input("id", sql.Int, id)
       .query(`DELETE FROM citas WHERE id = @id`);
-    return result.recordset;
+    return result;
   } catch (error) {
     console.log(error.message);
     return error.message;

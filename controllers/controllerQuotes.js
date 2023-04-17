@@ -56,6 +56,7 @@ exports.UpdateQuote = async (req, res, next) => {
     const { id, especialidad, idPaciente, idFuncionario, fecha, estado } = value;
 
     const result = await dbQuotes.updateQuote(value);
+
     if (result.rowsAffected[0] === 1) {
       return res
         .status(200)
@@ -64,20 +65,19 @@ exports.UpdateQuote = async (req, res, next) => {
       return res.status(500).json({ error: result });
     }
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
 };
 
 exports.DeleteQuote = async (req, res, next) => {
   try {
-    const { id } = req.params.id;
-    const result = await dbQuotes.deleteQuote(id);
+    const result = await dbQuotes.deleteQuote(req.params.id);
     if (result.rowsAffected[0] === 1) {
       return res.status(200).json({ message: "Cita eliminada correctamente" });
     } else {
-      return res.status(500).json({ error: result });
+      return res.status(500).json({ error: 'Verifique si existe el id a eliminar' });
     }
-  } catch {
-    res.status(500).json({ error: error });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

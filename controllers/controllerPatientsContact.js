@@ -58,11 +58,11 @@ exports.DeletePatientsContact = async (req, res, next) => {
   try {
     const data = await dbPatientsContact.deletePatientContact(req.params.id);
     if (data[0] > 0) {
-      res.status(200).json({ info: "Eliminado correctamente" });
+      res.status(200).json({ message: "Eliminado correctamente" });
     } else {
       return res.status(400).json({ error: "Error al eliminar, Verifique si el registro existe" });
     }
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
 };

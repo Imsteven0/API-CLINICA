@@ -2,8 +2,6 @@
 const dbPatients = require("../database/dataModels/dbPatiets.js");
 const pacienteSchema = require("../schemas/Patients.js");
 
-const pacientsAdd  = require("../schemas/patientsAdd.js")
-
 exports.PublicIP = async (req, res, next) => {
   res
     .status(200)
@@ -21,7 +19,7 @@ exports.ListCLients = async (req, res, next) => {
 
 exports.AddClientes = async (req, res, next) => {
   try {
-    const { error, value } = pacientsAdd.validate(req.body, {
+    const { error, value } = pacienteSchema.validate(req.body, {
       abortEarly: false,
     });
     if (error) {
@@ -34,7 +32,6 @@ exports.AddClientes = async (req, res, next) => {
       apellidos,
       cedula,
       direccion,
-      telefono,
       peso,
       fechaNacimiento,
       altura,
@@ -71,7 +68,6 @@ exports.UpdateClientes = async (req, res, next) => {
       apellidos,
       cedula,
       direccion,
-      telefono,
       peso,
       fechaNacimiento,
       altura,
@@ -92,11 +88,14 @@ exports.UpdateClientes = async (req, res, next) => {
 };
 
 exports.DeleteClientes = async (req, res, next) => {
- console.log('entro')
   try {
     const data = await dbPatients.deletePatient(req.params.id);
-    res.status(200).json({info: 'Eliminado correctamente'});
+    if (data[0] > 0) {
+      return res.status(200).json({ message: "Paciente eliminado correctamente" });
+    } else {
+      return res.status(400).json({ error: "Error al eliminar" });
+    }
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
 };

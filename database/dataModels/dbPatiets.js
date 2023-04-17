@@ -56,13 +56,10 @@ async function updatePatient(patient) {
           apellidos = @apellidos,
           cedula = @cedula,
           direccion = @direccion,
-          telefono = @telefono,
           peso = @peso,
           fechaNacimiento = @fechaNacimiento,
           altura = @altura,
-          enfermedades = @enfermedades,
-          tipoSangre = @tipoSangre,
-          alergias = @alergias
+          tipoSangre = @tipoSangre
           WHERE id = @id;`);
     return result;
   } catch (error) {
@@ -78,7 +75,7 @@ async function deletePatient(id) {
       .request()
       .input("id", sql.Int, id)
       .query(`DELETE FROM pacientes WHERE id = @id;`);
-    return result.recordset;
+    return result.rowsAffected;
   } catch (error) {
     console.log(error);
     return error.message
