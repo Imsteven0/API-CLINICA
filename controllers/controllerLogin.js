@@ -45,12 +45,14 @@ exports.Register = async (req, res, next) => {
       );
 
       user.token = token;
+
       const usuario = await dbCollaborators.verifyCredentialsLogin(cedula);
 
       await dbCollaborators.updateTokenCollaborator(addUser, token);
 
       res.status(200).json({
         id: usuario[0].idRol,
+        nombre: usuario[0].nombre,
         rol: usuario[0].descripcionRol,
         token: token,
       });
@@ -86,6 +88,7 @@ exports.Login = async (req, res, next) => {
 
       res.status(200).json({
         id: user[0].idRol,
+        nombre: usuario[0].nombre,
         rol: user[0].descripcionRol,
         token: user[0].token,
       });

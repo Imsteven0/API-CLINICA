@@ -1,37 +1,30 @@
 const express = require("express");
 const router = express.Router();
 
-const controlQoutes = require("../controllers/controllerQuotes");
+const controlOfficials = require("../controllers/controllerOfficials");
 const auth = require("../middlewares/authJWT");
 const rol = require("../middlewares/roles-middleware");
 
 module.exports = function () {
-  router.post(
-    "/ListQuotesByDate",
+  router.get(
+    "/listOfficials",
     auth.verifyToken,
     rol.restrictTo(1),
-    controlQoutes.ListQuotesByDate
-  );
-
-  router.post(
-    "/AddQoutes",
-    auth.verifyToken,
-    rol.restrictTo(1),
-    controlQoutes.AddQoutes
+    controlOfficials.GetAllOfficials
   );
 
   router.put(
-    "/UpdateQuote",
+    "/updateOfficials",
     auth.verifyToken,
     rol.restrictTo(1),
-    controlQoutes.UpdateQuote
+    controlOfficials.UpdateOfficial
   );
 
   router.delete(
-    "/DeleteQuote/:id",
+    "/deleteOfficials/:cedula",
     auth.verifyToken,
     rol.restrictTo(1),
-    controlQoutes.DeleteQuote
+    controlOfficials.DeleteOfficial
   );
 
   return router;
