@@ -10,7 +10,7 @@ async function getAllPatientsContact(id) {
       .query(`SELECT pc.id,pc.idPaciente,pc.nombre,pc.apellidos,pc.telefono,pc.direccion,p.parentezco 
       FROM pacientes_contacto as PC
       INNER JOIN parentezco as p on p.id = pc.idParentezco
-      WHERE PC.id = @id`);
+      WHERE PC.idPaciente = @id`);
     return result.recordset;
   } catch (error) {
     return "error";
