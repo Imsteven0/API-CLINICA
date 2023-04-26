@@ -22,6 +22,8 @@ module.exports = function () {
 
   router.post(
     "/AddQoutes",
+    auth.verifyToken,
+    rol.restrictTo(1),
     controlQoutes.AddQoutes
   );
 
