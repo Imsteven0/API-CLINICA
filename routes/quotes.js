@@ -13,6 +13,13 @@ module.exports = function () {
     controlQoutes.ListQuotesByDate
   );
 
+  router.get(
+    "/listQuotesWithPatients",
+    auth.verifyToken,
+    rol.restrictTo(1),
+    controlQoutes.listCitas
+  );
+
   router.post(
     "/AddQoutes",
     controlQoutes.AddQoutes

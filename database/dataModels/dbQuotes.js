@@ -25,6 +25,19 @@ async function getQuotes() {
   }
 }
 
+async function getQuotesPatients() {
+  try {
+    let pool = await sql.connect(config);
+    let data = await pool.request()
+      .query(`select p.nombre, p.apellidos, f.nombre, f.apellidos, c.especialidad,c.especialidad from citas c
+    inner join pacientes p on p.id = c.idPaciente
+    inner join funcionarios f on f.id = c.idFuncionario`);
+    return data.recordset;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function addQuote(Quote) {
   try {
     let pool = await sql.connect(config);
@@ -91,4 +104,5 @@ module.exports = {
   updateQuote: updateQuote,
   deleteQuote: deleteQuote,
   getQuotes: getQuotes,
+  getQuotesPatients: getQuotesPatients,
 };
