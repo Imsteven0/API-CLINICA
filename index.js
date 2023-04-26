@@ -13,6 +13,7 @@ const MedicalConsult = require("./routes/medicalConsult");
 const patientsDiseases = require("./routes/patientsDiseases");
 const patientsContact = require("./routes/patientsContact");
 const official = require("./routes/officials");
+const Exam = require("./routes/examen");
 
 //Inicializar express
 const app = express();
@@ -30,6 +31,7 @@ app.use("/", MedicalConsult());
 app.use("/", patientsDiseases());
 app.use("/", patientsContact());
 app.use("/", official());
+app.use("/", Exam());
 
 //Puerto donde esta corriendo el servidor
 app.listen(process.env.PORT, () => {
