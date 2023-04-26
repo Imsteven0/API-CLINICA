@@ -15,6 +15,16 @@ async function getQuotesBetweenDates(startDate, endDate) {
   }
 }
 
+async function getQuotes() {
+  try {
+    let pool = await sql.connect(config);
+    let data = await pool.request().query("SELECT * FROM citas");
+    return data.recordset;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function addQuote(Quote) {
   try {
     let pool = await sql.connect(config);
@@ -80,4 +90,5 @@ module.exports = {
   addQuote: addQuote,
   updateQuote: updateQuote,
   deleteQuote: deleteQuote,
+  getQuotes: getQuotes,
 };

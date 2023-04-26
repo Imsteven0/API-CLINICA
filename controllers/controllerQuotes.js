@@ -30,13 +30,25 @@ exports.AddQoutes = async (req, res, next) => {
     }
     const { especialidad, idPaciente, idFuncionario, fecha, estado } = value;
 
-    newQuoteId = await dbQuotes.addQuote(value);
-    if (newQuoteId[0].id) {
-      return res
-        .status(200)
-        .json({ message: "Cita agregada correctamente", id: newQuoteId[0].id });
+    let dataCitas = await dbQuotes.getQuotes();
+
+    let exist = dataCitas.filter(
+      ({ fecha }) =>
+        new Date(fecha).toISOString() === new Date(value.fecha).toISOString()
+    );
+
+    if (exist.length === 0) {
+      newQuoteId = await dbQuotes.addQuote(value);
+      if (newQuoteId[0].id) {
+        return res.status(200).json({
+          message: "Cita agregada correctamente",
+          id: newQuoteId[0].id,
+        });
+      } else {
+        return res.status(500).json({ error: newQuoteId });
+      }
     } else {
-      return res.status(500).json({ error: newQuoteId });
+      res.status(400).json({ error: "Ya existe una cita en ese horario" });
     }
   } catch (error) {
     res.status(500).json({ error: error });
@@ -53,7 +65,8 @@ exports.UpdateQuote = async (req, res, next) => {
         .status(400)
         .json({ errors: error.details.map((e) => e.message) });
     }
-    const { id, especialidad, idPaciente, idFuncionario, fecha, estado } = value;
+    const { id, especialidad, idPaciente, idFuncionario, fecha, estado } =
+      value;
 
     const result = await dbQuotes.updateQuote(value);
 
@@ -75,7 +88,9 @@ exports.DeleteQuote = async (req, res, next) => {
     if (result.rowsAffected[0] === 1) {
       return res.status(200).json({ message: "Cita eliminada correctamente" });
     } else {
-      return res.status(500).json({ error: 'Verifique si existe el id a eliminar' });
+      return res
+        .status(500)
+        .json({ error: "Verifique si existe el id a eliminar" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
