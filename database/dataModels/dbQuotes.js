@@ -29,7 +29,7 @@ async function getQuotesPatients() {
   try {
     let pool = await sql.connect(config);
     let data = await pool.request()
-      .query(`select p.nombre, p.apellidos, f.nombre, f.apellidos, c.especialidad,c.especialidad,C.fecha from citas c
+      .query(`select p.nombre +' '+ p.apellidos as Cliente, f.nombre +' '+ f.apellidos as Funcionario, c.especialidad,c.especialidad,C.fecha from citas c
       inner join pacientes p on p.id = c.idPaciente
       inner join funcionarios f on f.id = c.idFuncionario`);
     return data.recordset;
