@@ -5,7 +5,7 @@ async function getAllOfficials() {
   try {
     let pool = await sql.connect(config);
     let data = await pool.request()
-      .query(`Select F.idRol,R.descripcion as rolUsuario ,F.nombre,F.apellidos,F.cedula,F.ultimaSeccion,F.createAt as fechaCreado 
+      .query(`Select  F.id, F.idRol,R.descripcion as rolUsuario ,F.nombre,F.apellidos,F.cedula,F.ultimaSeccion,F.createAt as fechaCreado 
       from funcionarios F
       INNER JOIN rol AS R ON R.id = F.idRol`);
     return data.recordset;
