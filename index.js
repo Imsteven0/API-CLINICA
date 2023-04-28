@@ -14,6 +14,8 @@ const patientsDiseases = require("./routes/patientsDiseases");
 const patientsContact = require("./routes/patientsContact");
 const official = require("./routes/officials");
 const Exam = require("./routes/examen");
+const Diagnostic = require("./routes/diagnosis");
+
 
 //Inicializar express
 const app = express();
@@ -32,6 +34,7 @@ app.use("/", patientsDiseases());
 app.use("/", patientsContact());
 app.use("/", official());
 app.use("/", Exam());
+app.use("/", Diagnostic());
 
 //Puerto donde esta corriendo el servidor
 app.listen(process.env.PORT, () => {
