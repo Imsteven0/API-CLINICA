@@ -20,6 +20,13 @@ module.exports = function () {
     controlQoutes.listCitas
   );
 
+  router.get(
+    "/listQuotesWithPatientsConsult",
+    auth.verifyToken,
+    rol.restrictTo(1),
+    controlQoutes.listCitasWithConsult
+  );
+
   router.post(
     "/AddQoutes",
     auth.verifyToken,

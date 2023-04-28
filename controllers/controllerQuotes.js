@@ -29,6 +29,18 @@ exports.listCitas = async (req, res, next) => {
   }
 };
 
+exports.listCitasWithConsult = async (req, res, next) => {
+  try {
+    const data = await dbQuotes.getQuotesPatients();
+    // Respondemos con un status 200 y la lista de citas obtenida
+    res.status(200).json(data);
+  } catch (error) {
+    // Si ocurre un error, respondemos con un status 500 y un objeto JSON que contiene información sobre el error
+    res.status(500).json({ error: error });
+  }
+};
+
+
 exports.AddQoutes = async (req, res, next) => {
   try {
     const { error, value } = citaSchema.validate(req.body, {

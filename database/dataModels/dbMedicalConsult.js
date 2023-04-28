@@ -4,7 +4,10 @@ var sql = require("mssql");
 async function getAllConsult() {
   try {
     let pool = await sql.connect(config);
-    let data = await pool.request().query("Select * from consulta");
+    let data = await pool.request().query(`Select c.id,c.idCita,c.idFuncionario,p.nombre + ' ' + p.apellidos as nombreCliente from consulta c
+    inner join citas as ci on ci.id = c.idCita
+    inner join pacientes as p on p.id = ci.idPaciente
+    `);
     return data.recordset;
   } catch (error) {
     console.log(error);
