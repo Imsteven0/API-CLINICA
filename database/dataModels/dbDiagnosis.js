@@ -30,9 +30,9 @@ async function addDiagnostic(datos) {
     let result = await pool
       .request()
       .input("idConsulta", sql.Int, datos.idConsulta)
-      .input("diagnosticoMedico", sql.Int, datos.diagnosticoMedico)
-      .input("medicamentoRecetados", sql.Int, datos.medicamentoRecetados)
-      .input("fechaDiagnostico", sql.Int, datos.fechaDiagnostico)
+      .input("diagnosticoMedico", sql.VarChar, datos.diagnosticoMedico)
+      .input("medicamentoRecetados", sql.VarChar, datos.medicamentoRecetados)
+      .input("fechaDiagnostico", sql.DateTime, datos.fechaDiagnostico)
       .input("idEstado", sql.Int, datos.idEstado)
       .query(`INSERT INTO diagnostico (idConsulta, diagnosticoMedico, medicamentoRecetados, fechaDiagnostico, idEstado)
             VALUES (@idConsulta, @diagnosticoMedico,@medicamentoRecetados, @fechaDiagnostico, @idEstado) ;

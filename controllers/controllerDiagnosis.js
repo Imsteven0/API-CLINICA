@@ -34,7 +34,7 @@ exports.addDiagnostic = async (req, res, next) => {
     if (result) {
       return res
         .status(200)
-        .json({ message: "Diagnostico agregado correctamente" });
+        .json({ message: "Diagnostico agregado correctamente", id: result });
     } else {
       return res.status(500).json({ error: result });
     }
