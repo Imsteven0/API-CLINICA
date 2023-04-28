@@ -10,7 +10,7 @@ module.exports = function () {
     "/ListDiagnosis",
     auth.verifyToken,
     rol.restrictTo(1),
-    controllerDiagnosis.ListDiagnosis
+    controllerDiagnosis.getAllDiagnosis
   );
 
   router.post(
