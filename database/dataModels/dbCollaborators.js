@@ -21,7 +21,7 @@ async function verifyCredentialsLogin(cedula) {
       .request()
       .input("cedula", cedula)
       .query(
-        "SELECT f.id,f.nombre,f.password,r.id as idRol ,r.descripcion as descripcionRol  from funcionarios as f INNER JOIN rol AS r on r.id = f.idRol where f.cedula = @cedula"
+        "SELECT f.id,f.nombre +' '+ f.apellidos as nombre,f.password,r.id as idRol ,r.descripcion as descripcionRol  from funcionarios as f INNER JOIN rol AS r on r.id = f.idRol where f.cedula = @cedula"
       );
     return data.recordset;
   } catch (error) {
