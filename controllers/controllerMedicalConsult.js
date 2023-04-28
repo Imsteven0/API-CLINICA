@@ -20,7 +20,7 @@ exports.AddMedicalConsult = async (req, res) => {
         .status(400)
         .json({ errors: error.details.map((e) => e.message) });
     }
-    const { idCita, idFuncionario, peso, altura, descripcionSintomas } = value;
+    const { idCita, idFuncionario, peso, altura, presion, descripcionSintomas } = value;
 
     newConsultid = await dbMedicalConsult.addConsulta(value);
     if (newConsultid) {

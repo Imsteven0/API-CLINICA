@@ -6,6 +6,7 @@ const consultaSchema = Joi.object({
   idFuncionario: Joi.number().integer().positive().required(),
   peso: Joi.string().required(),
   altura: Joi.string().required(),
+  presion: Joi.string().required(),
   descripcionSintomas: Joi.string().required(),
 });
 

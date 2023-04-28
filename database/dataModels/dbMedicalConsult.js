@@ -18,12 +18,13 @@ async function addConsulta(datos) {
       .request()
       .input("idCita", sql.Int, datos.idCita)
       .input("idFuncionario", sql.Int, datos.idFuncionario)
+      .input("presion", sql.VarChar, datos.presion)
       .input("peso", sql.VarChar, datos.peso)
       .input("altura", sql.VarChar, datos.altura)
       .input("descripcionSintomas", sql.VarChar, datos.descripcionSintomas)
       .query(
-        `INSERT INTO consulta (idCita, idFuncionario, peso, altura, descripcionSintomas) 
-            VALUES (@idCita, @idFuncionario, @peso, @altura, @descripcionSintomas); 
+        `INSERT INTO consulta (idCita, idFuncionario, presion, peso, altura, descripcionSintomas) 
+            VALUES (@idCita, @idFuncionario, @presion ,@peso, @altura, @descripcionSintomas); 
             SELECT SCOPE_IDENTITY() AS id`
       );
     return result.recordset[0].id;
