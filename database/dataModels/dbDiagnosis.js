@@ -31,10 +31,11 @@ async function addDiagnostic(datos) {
       .request()
       .input("idConsulta", sql.Int, datos.idConsulta)
       .input("diagnosticoMedico", sql.Int, datos.diagnosticoMedico)
+      .input("medicamentoRecetados", sql.Int, datos.medicamentoRecetados)
       .input("fechaDiagnostico", sql.Int, datos.fechaDiagnostico)
       .input("idEstado", sql.Int, datos.idEstado)
-      .query(`INSERT INTO diagnostico (idConsulta, diagnosticoMedico, fechaDiagnostico, idEstado)
-            VALUES (@idConsulta, @diagnosticoMedico, @fechaDiagnostico, @idEstado) ;
+      .query(`INSERT INTO diagnostico (idConsulta, diagnosticoMedico, medicamentoRecetados, fechaDiagnostico, idEstado)
+            VALUES (@idConsulta, @diagnosticoMedico,@medicamentoRecetados, @fechaDiagnostico, @idEstado) ;
             SELECT SCOPE_IDENTITY() AS id`);
     return result.recordset[0].id;
   } catch (error) {
